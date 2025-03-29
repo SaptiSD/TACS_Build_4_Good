@@ -20,6 +20,16 @@ def index():
     logger.info("--- Rendering Index Page ---")
     return render_template('index.html')
 
+@app.route('/generate')
+def generate():
+    logger.info("--- Rendering generate Page ---")
+    return render_template('generate.html')
+
+@app.route('/notion')
+def notion():
+    logger.info("--- Rendering notion Page ---")
+    return render_template('notion.html')
+
 if __name__ == '__main__':
     logger.info("--- Starting Flask App ---")
     app.run(debug=True, port=8000)

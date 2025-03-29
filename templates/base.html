@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SimpliLearn{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Ensure fallback styles in case Tailwind doesn't load */
@@ -15,7 +18,7 @@
 </head>
 <body class="bg-[#F4F9F4] text-gray-900">
     <!-- Header and Navigation -->
-    <header class="bg-blue-600 text-white">
+    <header class="bg-blue-500 text-white">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
         <!-- Updated Logo -->
         <a href="/" class="text-3xl font-bold">SimpliLearn</a>
@@ -26,8 +29,22 @@
                 <li>
                     <a 
                         href="{{ url_for('index') }}"
-                        class="font-semibold text-lg px-4 py-2 rounded-lg transition duration-300 transform hover:bg-white hover:text-blue-700 hover:scale-105">
+                        class="font-semibold text-lg px-4 py-2 rounded-lg transition duration-300 transform hover:bg-white hover:text-blue-500 hover:scale-105">
                         Home
+                    </a>
+                </li>
+                <li>
+                    <a 
+                        href="{{ url_for('generate') }}"
+                        class="font-semibold text-lg px-4 py-2 rounded-lg transition duration-300 transform hover:bg-white hover:text-blue-500 hover:scale-105">
+                        Generate
+                    </a>
+                </li>
+                <li>
+                    <a 
+                        href="{{ url_for('notion') }}"
+                        class="font-semibold text-lg px-4 py-2 rounded-lg transition duration-300 transform hover:bg-white hover:text-blue-500 hover:scale-105">
+                        Notion
                     </a>
                 </li>
             </ul>
@@ -42,11 +59,11 @@
     </main>
     
     <!-- Footer -->
-    <footer class="bg-blue-600 text-white py-6">
+    <footer class="bg-blue-500 text-white py-6">
         <div class="container mx-auto text-center space-y-4">
             <!-- Logo and Description -->
             <div>
-                <a href="/" class="text-2xl font-bold hover:text-blue-300 transition">SimpliSustain</a>
+                <a href="/" class="text-2xl font-bold hover:text-blue-500 transition">SimpliSustain</a>
                 <p class="text-sm mt-2">Empowering sustainable solutions for a better tomorrow.</p>
             </div>
     
@@ -71,7 +88,7 @@
     
             <!-- Back to Top Button -->
             <div>
-                <a href="#top" class="inline-block bg-blue-700 text-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-700 transition duration-300">
+                <a href="#top" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-500 transition duration-300">
                     Back to Top
                 </a>
             </div>
