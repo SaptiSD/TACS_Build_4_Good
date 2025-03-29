@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 import logging
 from dotenv import load_dotenv
 import os
-import google.generativeai as genai
+from google import genai
+from test_notion import testNotion
 
 
 # Initialize Flask app with correct template folder
@@ -21,7 +22,8 @@ GEMINI_KEY = os.getenv("GEMINI_KEY")
 if not GEMINI_KEY:
     raise ValueError("Gemini API key not found.")
 
-genai.configure(api_key=GEMINI_KEY)
+# genai.configure(api_key=GEMINI_KEY)
+client = genai.Client(api_key = GEMINI_KEY)
 
 # # Path to JSON data file
 # DATA_FILE = 'full file name'
@@ -69,7 +71,7 @@ def generate():
         return f"Error generating study plan: {str(e)}", 500
 
     # creating .csv file to be later integrated with Notion
-    try:
+    """try:
         csv_output = StringIO()
         csvWriter = csv.writer(csv_output)
         csvWriter.writerow(['goal_title', 'goal_due_date', 'task', 'due_date'])
@@ -93,6 +95,39 @@ def generate():
             as_attachment=True,
             download_name='study_plan.csv'
         )
+    except Exception as e:
+        logger.error(f"Error creating CSV: {e}")
+        return f"Error creating study plan CSV: {str(e)}", 500"""
+
+    try:
+        # Define the path to your static data folder
+        csv_file_path = os.path.join('Folder', 'static', 'data', 'test.csv')
+        
+        if not os.path.exists(os.path.dirname(csv_file_path)):
+            try:
+                os.makedirs(os.path.dirname(csv_file_path))
+            except Exception as e:
+                logger.error(f"Error creating directory: {e}")
+                return "Error creating directory for CSV file", 500
+
+        # Write to the CSV file
+        with open(csv_file_path, 'w', newline='') as file:
+            csvWriter = csv.writer(file)
+            csvWriter.writerow(['goal_title', 'goal_due_date', 'task_title', 'task_due_date'])
+            
+            current_date = start_date
+            for task in study_plan:
+                if current_date > end_date:
+                    break
+                if task.strip():  # Only write non-empty tasks
+                    csvWriter.writerow([subject, end_date.strftime('%Y-%m-%d'), task.strip(), current_date.strftime('%Y-%m-%d')])
+                current_date += timedelta(days=1)
+
+        testNotion()
+
+        # Redirect to notion page or return success message
+        return render_template('notion.html')
+        
     except Exception as e:
         logger.error(f"Error creating CSV: {e}")
         return f"Error creating study plan CSV: {str(e)}", 500
