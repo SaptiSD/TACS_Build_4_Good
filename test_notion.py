@@ -1,10 +1,12 @@
 import io
+import os
 from csv_processor import process_csv_file
 from query import query_database
-
-# Option 1: Open a test CSV file from the 'static' folder
-with open('static/test.csv', 'rb') as file_stream:
-    process_csv_file(file_stream)
+def testNotion():
+    # Option 1: Open a test CSV file from the 'static' folder
+    csv_file_path = os.path.join('Folder', 'static', 'data', 'test.csv')
+    with open(csv_file_path, 'rb') as file_stream:
+        process_csv_file(file_stream)
 
 # Option 2: Alternatively, you can simulate CSV data using a byte stream
 # csv_data = b"""goal_title,goal_due_date,task_title,task_due_date
@@ -16,12 +18,12 @@ with open('static/test.csv', 'rb') as file_stream:
 # """
 # process_csv_file(io.BytesIO(csv_data))
 
-print("Finished processing CSV file.")
+    print("Finished processing CSV file.")
 
 # Query the Notion database to see what goals and tasks were created
-data = query_database()
-print("Queried Notion Data:")
-for goal in data:
-    print(f"Goal: {goal['goal_title']} (Due: {goal['goal_due_date']})")
-    for task in goal['tasks']:
-        print(f"  - Task: {task['task_title']} (Due: {task['task_due_date']})")
+    data = query_database()
+    print("Queried Notion Data:")
+    for goal in data:
+        print(f"Goal: {goal['goal_title']} (Due: {goal['goal_due_date']})")
+        for task in goal['tasks']:
+            print(f"  - Task: {task['task_title']} (Due: {task['task_due_date']})")
