@@ -54,9 +54,14 @@ def generate():
         return "Invalid date range provided.", 400
     
     # generate actual study plan using AI
-    prompt = f"Pretend that you are a high-paid tutor who is internationally renowned for their amazing tutoring services. Your latest client is a billionaire with a lot of money and influence who would like you to generate a study plan for their favorite only child. Because of how high-profile this client is, you want to do everything you can not to let them down or else your reputation and career will be at stake. Create a day-by-day study plan for the subject {subject} from {start_date.date()} to {end_date.date()} with a frequency of '{frequency}'."
-    response = client.generate_text(prompt = prompt)
-    study_plan = response.result.split("\n")
+    try:
+        prompt = f"Pretend that you are a high-paid tutor who is internationally renowned for their amazing tutoring services. Your latest client is a billionaire with a lot of money and influence who would like you to generate a study plan for their favorite only child. Because of how high-profile this client is, you want to do everything you can not to let them down or else your reputation and career will be at stake. Create a day-by-day study plan for the subject {subject} from {start_date.date()} to {end_date.date()} with a frequency of '{frequency}'."
+        response = client.models.generate_content(model = 'gemini-2.0-flash', contents = prompt)
+        # print(response.text)
+        study_plan = response.text.split("\n")
+    except Exception as e:
+        print(f"Error accessing Gemini: {e}")
+
 
     # creating .csv file to be later integrated with Notion
     csv_output = StringIO()

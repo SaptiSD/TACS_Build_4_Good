@@ -8,7 +8,7 @@
         <span style="font-family: 'Cherry Bomb One', cursive;">Your</span> 
         <span style="font-family: 'Cherry Bomb One', cursive;">Study Plan</span>
     </h1>
-    <form id = "gemini_input" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <form id = "gemini_input" method="POST" action="{{ url_for('generate') }}" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
         <div class="mb-4">
             <label for="timeframe" class="block text-left font-semibold text-gray-700 mb-2">Select Timeframe:</label>
             <div class="flex items-center space-x-4">
