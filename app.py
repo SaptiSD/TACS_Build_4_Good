@@ -28,8 +28,17 @@ def index():
     logger.info("--- Rendering Index Page ---")
     return render_template('index.html')
 
-@app.route('/submit', methods = ['POST'])
+
+@app.route('/generate' , methods = ['POST'])
 def generate():
+    logger.info("--- Rendering generate Page ---")
+    return render_template('generate.html')
+
+@app.route('/notion')
+def notion():
+    logger.info("--- Rendering notion Page ---")
+    return render_template('notion.html')
+
 
 if __name__ == '__main__':
     logger.info("--- Starting Flask App ---")
