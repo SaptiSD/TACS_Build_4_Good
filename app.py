@@ -28,6 +28,9 @@ def index():
     logger.info("--- Rendering Index Page ---")
     return render_template('index.html')
 
+@app.route('/submit', methods = ['POST'])
+def generate():
+
 if __name__ == '__main__':
     logger.info("--- Starting Flask App ---")
     app.run(debug=True, port=8000)
