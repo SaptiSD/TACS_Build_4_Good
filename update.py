@@ -1,11 +1,19 @@
 import os
 import requests
+from dotenv import load_dotenv
 
-NOTION_API_URL = "https://api.notion.com/v1/"
-#NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+# Load environment variables from .env file in development
+if os.path.exists('.env'):
+    load_dotenv()
 
-NOTION_TOKEN = "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"
-DATABASE_ID = "1c5cc172039980b9902ac96a2aaecc65"
+# Get Notion API configuration from environment variables with fallback error messages
+NOTION_API_URL = os.getenv("NOTION_API_URL")
+NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+DATABASE_ID = os.getenv("DATABASE_ID")
+
+# Validate required environment variables
+if not all([NOTION_API_URL, NOTION_TOKEN, DATABASE_ID]):
+    raise ValueError("Missing required environment variables. Please check NOTION_API_URL, NOTION_TOKEN, and DATABASE_ID are set.")
 
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
